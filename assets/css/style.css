@@ -27,7 +27,9 @@ table th:last-child {
 
 label {
   background-color: gray;
+  color: white;
   width: 100%;
   border-top-left-radius: 0.2em;
   border-top-right-radius: 0.2em;
+  padding-left: 0.5em;
 }
