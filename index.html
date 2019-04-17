@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <title> </title>
+
+  <head>
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+      integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+      integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://www.gstatic.com/firebasejs/5.9.4/firebase.js"></script>
+    <script src="assets/js/external/moment.js"></script>
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
+    <!-- <script src="assets/js/controller.js"></script> -->
+  </head>
+
+  <body>
+    <div class="jumbotron jumbotron-fluid">
+      <div class="container">
+        <h1 class="display-4">Any Time is Train Time</h1>
+        <p class="lead">
+          Choo Choo. Chee Chee.
+        </p>
+      </div>
+    </div>
+    <table class="table table-striped table-sm table-borderless">
+      <thead>
+        <tr>
+          <th scope="col">Train Name</th>
+          <th scope="col">Destination</th>
+          <th scope="col">Frequency (min)</th>
+          <th scope="col">Next Arrival</th>
+          <th scope="col">Minutes Away</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+    <hr />
+    <div id="formLable">
+      Add Train
+      <form id="trainForm">
+        <div class="form-group">
+          <label for="trainName">Train Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="trainName"
+            placeholder="name"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="destimation">Destination</label>
+          <input
+            class="form-control"
+            id="destination"
+            placeholder="destination"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="trainTime"
+            >First Train Time (HH:mm - military time)</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            id="trainTime"
+            placeholder="HH:mm"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="frequency">Frequency (min)</label>
+          <input
+            type="text"
+            class="form-control"
+            id="frequency"
+            placeholder="min"
+          />
+        </div>
+
+        <!-- When you click this button, trigger the submit event on this form. -->
+        <button type="submit" class="btn btn-primary btn-default">
+          Submit
+        </button>
+      </form>
+    </div>
+    <script type="text/javascript">
+      // new Controller();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,33 @@
+body {
+  margin: 2em;
+}
+
+div.jumbotron {
+  background-color: #7b3f00;
+}
+h1.display-4,
+p.lead {
+  color: white;
+  background-color: inherit;
+  text-align: center;
+}
+
+table thead {
+  background-color: #007bff;
+  color: white;
+}
+
+table th:first-child {
+  border-radius: 0.2em 0 0 0em;
+}
+
+table th:last-child {
+  border-radius: 0 0.2em 0 0;
+}
+
+label {
+  background-color: gray;
+  width: 100%;
+  border-top-left-radius: 0.2em;
+  border-top-right-radius: 0.2em;
+}
