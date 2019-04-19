@@ -100,7 +100,7 @@ Model.prototype.addDbListener = function(dbEvent = 'child_added') {
     this.dbRef.limitToLast(1).on(dbEvent, function(childSnapshot) {
         console.log("child_added, updating view");
         let trainData = childSnapshot.val();
-        that.calcData = {"nextArrival": 1, "minutesAway": 2};
+        that.calcData.nextArrival = that.nextArrival();
         that.updateView(trainData);
     });
 }
@@ -114,6 +114,12 @@ Model.prototype.updateView = function(dbData) {
         <td>${this.calcData.nextArrival}</td> 
         <td>${this.calcData.minutesAway}</td>`
     );
+}
+
+Model.prototype.nextArrival = function() {
+    m = moment(this.trainTime, 'HH:mm');
+    console.log("moment = ", m);
+    return m.add(this.frequency, 'minutes').format('hh:mm A');
 }
 
 // Model.prototype.monthsWorked = function(mdydestination) {
