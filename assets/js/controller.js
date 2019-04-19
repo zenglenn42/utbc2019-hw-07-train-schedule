@@ -12,7 +12,6 @@ Controller.prototype.addSubmitHandler = function() {
 }
 
 Controller.prototype.processForm = function() {
-    console.log("click");
     this.getData();
     this.model.dbPushRecord();
 }
@@ -25,7 +24,6 @@ Controller.prototype.getData = function() {
 
     // Update model with form data.
     this.model.setData(name, destination, trainTime, frequency);
-    console.log("model data = ", this.model.getData());
 }
 
 function Model(dbConfig) {
@@ -97,10 +95,10 @@ Model.prototype.validInputData = function() {
 
 Model.prototype.addDbListener = function(dbEvent = 'child_added') {
     let that = this;
-    this.dbRef.limitToLast(1).on(dbEvent, function(childSnapshot) {
+    this.dbRef.on(dbEvent, function(childSnapshot) {
         console.log("child_added, updating view");
         let trainData = childSnapshot.val();
-        that.calcData.nextArrival = that.nextArrival();
+        that.calcData = that.calcTimes(trainData);
         that.updateView(trainData);
     });
 }
@@ -116,15 +114,15 @@ Model.prototype.updateView = function(dbData) {
     );
 }
 
-Model.prototype.nextArrival = function() {
-    m = moment(this.trainTime, 'HH:mm');
-    console.log("moment = ", m);
-    return m.add(this.frequency, 'minutes').format('hh:mm A');
+Model.prototype.calcTimes = function(trainData) {
+    results = {};
+    m = moment(trainData.trainTime, 'HH:mm');
+    results.nextArrival = m.add(trainData.frequency, 'minutes').format('hh:mm A');
+    current = moment();
+    while (m.valueOf() < current.valueOf()) {
+        m.add(trainData.frequency, 'minutes');
+    }
+    results.nextArrival = m.format('hh:mm A');
+    results.minutesAway = m.diff(current.subtract(1, 'minute'), 'minutes');
+    return results;
 }
-
-// Model.prototype.monthsWorked = function(mdydestination) {
-//     let destinationMsec = moment(mdydestination, "M/D/YYYY").valueOf();
-//     let currentDate = moment();
-//     let monthsWorked = currentDate.diff(destinationMsec, 'months');
-//     return monthsWorked;
-// }
