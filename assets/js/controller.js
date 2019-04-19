@@ -13,6 +13,7 @@ Controller.prototype.addSubmitHandler = function() {
 
 Controller.prototype.processForm = function() {
     this.getData();
+    this.clearForm();
     this.model.dbPushRecord();
 }
 
@@ -24,6 +25,13 @@ Controller.prototype.getData = function() {
 
     // Update model with form data.
     this.model.setData(name, destination, trainTime, frequency);
+}
+
+Controller.prototype.clearForm = function() {
+    $("#trainName").val('');
+    $("#destination").val('');
+    $("#trainTime").val('');
+    $("#frequency").val('');
 }
 
 function Model(dbConfig) {
@@ -98,6 +106,7 @@ Model.prototype.addDbListener = function(dbEvent = 'child_added') {
     this.dbRef.on(dbEvent, function(childSnapshot) {
         console.log("child_added, updating view");
         let trainData = childSnapshot.val();
+        console.log("addDbListener ", trainData);
         that.calcData = that.calcTimes(trainData);
         that.updateView(trainData);
     });
@@ -117,7 +126,6 @@ Model.prototype.updateView = function(dbData) {
 Model.prototype.calcTimes = function(trainData) {
     results = {};
     m = moment(trainData.trainTime, 'HH:mm');
-    results.nextArrival = m.add(trainData.frequency, 'minutes').format('hh:mm A');
     current = moment();
     while (m.valueOf() < current.valueOf()) {
         m.add(trainData.frequency, 'minutes');
